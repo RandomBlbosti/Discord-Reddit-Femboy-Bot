@@ -1,0 +1,3 @@
+discord~=1.7.3
+redditeasy~=3.6.3
+urlextract~=1.4.0
