@@ -51,13 +51,15 @@ async def reddit(ctx, arg1: str = None):
                 meme = red.get_top_post(subreddit=subreddit.lower())
             else:
                 meme = red.get_controversial_post(subreddit=subreddit.lower())
-            meme.content = str(meme.content).replace("&lt;3", ":heart:")
+            if "&" in str(meme.content):
+                meme.content = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:")
+            if "&" in str(meme.title):
+                meme.title = str(meme.title).replace("amp;", "").replace("&lt;3", ":heart:")
             if meme.content is None:
                 meme.content = ""
             if "{'mediaCount':" in str(meme.content):
-                memcontent = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:")
-                mediacount = int(str(memcontent)[:16][-1])
-                links = extractor.find_urls(str(memcontent))
+                mediacount = int(str(meme.content)[:16][-1])
+                links = extractor.find_urls(str(meme.content))
                 fixedlinks = []
                 desc = ""
                 for i in range(mediacount):
@@ -118,13 +120,15 @@ async def reddit(ctx, arg1: str = None):
             meme = red.get_top_post(subreddit=subreddit.lower())
         else:
             meme = red.get_controversial_post(subreddit=subreddit.lower())
-        meme.content = str(meme.content).replace("&lt;3", ":heart:")
+         if "&" in str(meme.content):
+            meme.content = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:")
+         if "&" in str(meme.title):
+            meme.title = str(meme.title).replace("amp;", "").replace("&lt;3", ":heart:")
         if meme.content is None:
             meme.content = ""
         if "{'mediaCount':" in str(meme.content):
-            memcontent = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:")
-            mediacount = int(str(memcontent)[:16][-1])
-            links = extractor.find_urls(str(memcontent))
+            mediacount = int(str(meme.content)[:16][-1])
+            links = extractor.find_urls(str(meme.content))
             fixedlinks = []
             desc = ""
             for i in range(mediacount):
