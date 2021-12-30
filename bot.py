@@ -52,9 +52,9 @@ async def reddit(ctx, arg1: str = None):
             else:
                 meme = red.get_controversial_post(subreddit=subreddit.lower())
             if "&" in str(meme.content):
-                meme.content = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:")
+                meme.content = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:").replace("&gt;", ">").replace("&lt;", "<")
             if "&" in str(meme.title):
-                meme.title = str(meme.title).replace("amp;", "").replace("&lt;3", ":heart:")
+                meme.title = str(meme.title).replace("amp;", "").replace("&lt;3", ":heart:").replace("&gt;", ">").replace("&lt;", "<")
             if meme.content is None:
                 meme.content = ""
             if "{'mediaCount':" in str(meme.content):
@@ -121,9 +121,9 @@ async def reddit(ctx, arg1: str = None):
         else:
             meme = red.get_controversial_post(subreddit=subreddit.lower())
          if "&" in str(meme.content):
-            meme.content = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:")
+            meme.content = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:").replace("&gt;", ">").replace("&lt;", "<")
          if "&" in str(meme.title):
-            meme.title = str(meme.title).replace("amp;", "").replace("&lt;3", ":heart:")
+            meme.title = str(meme.title).replace("amp;", "").replace("&lt;3", ":heart:").replace("&gt;", ">").replace("&lt;", "<")
         if meme.content is None:
             meme.content = ""
         if "{'mediaCount':" in str(meme.content):
