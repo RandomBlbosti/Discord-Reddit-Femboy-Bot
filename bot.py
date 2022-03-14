@@ -3,6 +3,7 @@ import random
 from discord.ext import commands
 import redditeasy
 import urlextract
+import html
 
 TOKEN = 'YOUR BOT TOKEN HERE'
 bot = commands.Bot(command_prefix='f!')
@@ -20,14 +21,14 @@ async def on_ready():
 @commands.is_nsfw()
 async def reddit(ctx, arg1: str = None):
     extractor = urlextract.URLExtract()
-    reddits = ['feminineboys', 'femboy', "femboy_irl", 'boysinskirts', 'femboys']
+    reddits = ['feminineboys', 'femboy', "femboy_irl", 'boysinskirts']
     if arg1 is None:
         stopo = True
     else:
         stopo = False
         subreddit = str(arg1)
     if not stopo:
-        if subreddit.lower() in reddits:
+        if subreddit.lower() in reddits or subreddit.lower() == 'polska' or subreddit.lower() == 'polish'::
             if subreddit.lower() == "feminineboys":
                 url = "https://styles.redditmedia.com/t5_2vmuo/styles/communityIcon_xt0odp2ips851.jpg?width=256&format=pjpg&s=57fde2ac04bda0c332a88ff433e63c0db6a49033"
             elif subreddit.lower() == "femboy":
@@ -36,8 +37,10 @@ async def reddit(ctx, arg1: str = None):
                 url = "https://styles.redditmedia.com/t5_124gju/styles/communityIcon_6niwblo40p471.png?width=256&s=7eea38cdf172e2706b509f029849c07519a7c318"
             elif subreddit.lower() == "boysinskirts":
                 url = "https://styles.redditmedia.com/t5_2yo2c3/styles/communityIcon_uhleghlsjnf51.png?width=256&s=526c6f47d0942c21e8ddccee8ed1b8d3661ac048"
-            elif subreddit.lower() == "femboys":
-                url = ""
+            elif subreddit.lower() == "polska":
+                url = "https://styles.redditmedia.com/t5_2qiqo/styles/communityIcon_3s04zinfgjr41.png?width=256&s=cac5a2cf4a3e18591ec0ea105670ad7f213beaf9"
+            elif subreddit.lower() == "polish":
+                url = "https://styles.redditmedia.com/t5_2rhyf/styles/communityIcon_jvkebngncnd31.png?width=256&s=6330aceac0d749e574be61b8e00c51a3e8d0afe0"
             red = redditeasy.Subreddit(client_id=client_id,
                                        client_secret=client_secret,
                                        user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, '
@@ -52,9 +55,9 @@ async def reddit(ctx, arg1: str = None):
             else:
                 meme = red.get_controversial_post(subreddit=subreddit.lower())
             if "&" in str(meme.content):
-                meme.content = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:").replace("&gt;", ">").replace("&lt;", "<")
+                meme.content = html.unescape(str(meme.content).replace("amp;", ""))
             if "&" in str(meme.title):
-                meme.title = str(meme.title).replace("amp;", "").replace("&lt;3", ":heart:").replace("&gt;", ">").replace("&lt;", "<")
+                meme.title = html.unescape(str(meme.title).replace("amp;", ""))
             if meme.content is None:
                 meme.content = ""
             if "{'mediaCount':" in str(meme.content):
@@ -105,8 +108,6 @@ async def reddit(ctx, arg1: str = None):
             url = "https://styles.redditmedia.com/t5_124gju/styles/communityIcon_6niwblo40p471.png?width=256&s=7eea38cdf172e2706b509f029849c07519a7c318"
         elif subreddit.lower() == "boysinskirts":
             url = "https://styles.redditmedia.com/t5_2yo2c3/styles/communityIcon_uhleghlsjnf51.png?width=256&s=526c6f47d0942c21e8ddccee8ed1b8d3661ac048"
-        elif subreddit.lower() == "femboys":
-            url = ""
         red = redditeasy.Subreddit(client_id=client_id,
                                    client_secret=client_secret,
                                    user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, '
@@ -120,10 +121,10 @@ async def reddit(ctx, arg1: str = None):
             meme = red.get_top_post(subreddit=subreddit.lower())
         else:
             meme = red.get_controversial_post(subreddit=subreddit.lower())
-         if "&" in str(meme.content):
-            meme.content = str(meme.content).replace("amp;", "").replace("&lt;3", ":heart:").replace("&gt;", ">").replace("&lt;", "<")
-         if "&" in str(meme.title):
-            meme.title = str(meme.title).replace("amp;", "").replace("&lt;3", ":heart:").replace("&gt;", ">").replace("&lt;", "<")
+        if "&" in str(meme.content):
+            meme.content = html.unescape(str(meme.content).replace("amp;", ""))
+        if "&" in str(meme.title):
+            meme.title = html.unescape(str(meme.title).replace("amp;", ""))
         if meme.content is None:
             meme.content = ""
         if "{'mediaCount':" in str(meme.content):
